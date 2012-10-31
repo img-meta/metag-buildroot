@@ -14,11 +14,11 @@ choice
 
 	config BR2_UCLIBC_VERSION_0_9_32
 		bool "uClibc 0.9.32.x"
-		depends on !(BR2_arc || BR2_avr32 || BR2_sh || BR2_xtensa)
+		depends on !(BR2_arc || BR2_avr32 || BR2_metag || BR2_sh || BR2_xtensa)
 
 	config BR2_UCLIBC_VERSION_0_9_33
 		bool "uClibc 0.9.33.x"
-		depends on !(BR2_arc || BR2_avr32 || BR2_xtensa)
+		depends on !(BR2_arc || BR2_avr32 || BR2_metag || BR2_xtensa)
 
 	config BR2_UCLIBC_VERSION_0_9_33_ARC
 		bool "uClibc 0.9.33.x-arc"
