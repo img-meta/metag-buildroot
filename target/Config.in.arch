@@ -53,6 +53,19 @@ config BR2_m68k
 	  Motorola 68000 family microprocessor
 	  http://en.wikipedia.org/wiki/M68k
 
+config BR2_metag
+	bool "Meta"
+	help
+	  Meta cores are 32-bit, hardware multithreaded, general purpose, embedded
+	  processors which also feature a DSP instruction set, and can be found in
+	  many digital radios. They are capable of running different operating
+	  systems on different hardware threads, for example a digital radio might
+	  run RTOSes for DAB decoding and audio decoding on 3 hardware threads,
+	  and run Linux on the 4th hardware thread to manage the user interface,
+	  networking etc. HTPs are also capable of running SMP Linux on multiple
+	  hardware threads.
+	  http://www.imgtec.com/meta/meta-technology.asp
+
 config BR2_microblazeel
 	bool "Microblaze AXI (little endian)"
 	help
@@ -221,6 +234,18 @@ config BR2_BFIN_FDPIC
 config BR2_BFIN_FLAT
 	bool "FLAT"
 	select BR2_PREFER_STATIC_LIB
+endchoice
+
+choice
+	prompt "Target Architecture Variant"
+	depends on BR2_metag
+	default BR2_metag_2_1
+	help
+	  Specific CPU variant to use
+config BR2_metag_1_2
+	bool "Meta 1.2"
+config BR2_metag_2_1
+	bool "Meta 2.1"
 endchoice
 
 choice
@@ -610,6 +635,7 @@ config BR2_ARCH
 	default "i686"		if BR2_x86_athlon_4
 	default "x86_64"	if BR2_x86_64
 	default "m68k"		if BR2_m68k
+	default "metag"		if BR2_metag
 	default "microblaze"	if BR2_microblaze
 	default "mips"		if BR2_mips
 	default "mipsel"	if BR2_mipsel
@@ -632,7 +658,7 @@ config BR2_ENDIAN
 	string
 	default "LITTLE" if BR2_arm || BR2_bfin || BR2_i386 || BR2_mipsel || BR2_mips64el || \
 			    BR2_sh3 || BR2_sh4 || BR2_sh4a || BR2_x86_64 || BR2_sh64 || \
-			    BR2_microblazeel
+			    BR2_microblazeel || BR2_metag
 	default "BIG"    if BR2_armeb || BR2_avr32 || BR2_m68k || BR2_mips || BR2_mips64 || \
 			    BR2_powerpc || BR2_sh2 || BR2_sh2a || \
 			    BR2_sh3eb || BR2_sh4eb || BR2_sh4aeb || BR2_sparc || \

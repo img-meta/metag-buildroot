@@ -222,6 +222,16 @@ endif
 ifeq ($(UCLIBC_TARGET_ARCH),avr32)
 	/bin/echo "LINKRELAX=y" >> $(UCLIBC_DIR)/.oldconfig
 endif
+ifeq ($(UCLIBC_TARGET_ARCH),metag)
+	/bin/echo "# CONFIG_META_1_2 is not set" >> $(UCLIBC_DIR)/.oldconfig
+	/bin/echo "# CONFIG_META_2_1 is not set" >> $(UCLIBC_DIR)/.oldconfig
+ifeq ($(BR2_metag_1_2),y)
+	$(SED) 's,# CONFIG_META_1_2 is not set,CONFIG_META_1_2=y,g' $(UCLIBC_DIR)/.oldconfig
+endif
+ifeq ($(BR2_metag_2_1),y)
+	$(SED) 's,# CONFIG_META_2_1 is not set,CONFIG_META_2_1=y,g' $(UCLIBC_DIR)/.oldconfig
+endif
+endif
 ifneq ($(UCLIBC_TARGET_ENDIAN),)
 	# The above doesn't work for me, so redo
 	$(SED) 's/.*\(ARCH_$(UCLIBC_NOT_TARGET_ENDIAN)_ENDIAN\).*/# \1 is not set/g' \
