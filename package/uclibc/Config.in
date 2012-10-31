@@ -182,6 +182,7 @@ config BR2_UCLIBC_TARGET_ARCH
 	default avr32	   if BR2_avr32
 	default bfin	   if BR2_bfin
 	default m68k	   if BR2_m68k
+	default metag	   if BR2_metag
 	default mips	   if BR2_mips || BR2_mipsel || BR2_mips64 || BR2_mips64el
 	default powerpc	   if BR2_powerpc
 	default sh	   if BR2_sh
@@ -215,6 +216,12 @@ config BR2_UCLIBC_ARM_BX
 	bool
 	depends on BR2_UCLIBC_TARGET_ARCH = "arm"
 	default y if (BR2_ARM_CPU_HAS_THUMB || BR2_ARM_CPU_HAS_THUMB2)
+
+config BR2_UCLIBC_METAG_TYPE
+	string
+	depends on BR2_UCLIBC_TARGET_ARCH = "metag"
+	default 1_2	if BR2_metag_1_2
+	default 2_1	if BR2_metag_2_1
 
 config BR2_UCLIBC_MIPS_ABI
 	string

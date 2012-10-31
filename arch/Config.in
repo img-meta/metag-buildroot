@@ -83,6 +83,19 @@ config BR2_m68k
 	  Motorola 68000 family microprocessor
 	  http://en.wikipedia.org/wiki/M68k
 
+config BR2_metag
+	bool "Meta"
+	help
+	  Meta cores are 32-bit, hardware multithreaded, general purpose, embedded
+	  processors which also feature a DSP instruction set, and can be found
+	  in many digital radios. They are capable of running different operating
+	  systems on different hardware threads, for example a digital radio might
+	  run RTOSes for DAB decoding and audio decoding on 3 hardware threads,
+	  and run Linux on the 4th hardware thread to manage the user interface,
+	  networking etc. HTPs are also capable of running SMP Linux on multiple
+	  hardware threads.
+	  http://www.imgtec.com/meta/meta-technology.asp
+
 config BR2_microblazeel
 	bool "Microblaze AXI (little endian)"
 	help
@@ -307,6 +320,10 @@ endif
 
 if BR2_m68k
 source "arch/Config.in.m68k"
+endif
+
+if BR2_metag
+source "arch/Config.in.metag"
 endif
 
 if BR2_microblazeel || BR2_microblazebe

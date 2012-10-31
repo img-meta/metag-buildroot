@@ -1,0 +1,18 @@
+config BR2_ARCH
+	default "metag"	if BR2_metag
+
+config BR2_ENDIAN
+	default "LITTLE"
+
+choice
+	prompt "Target Architecture Variant"
+	depends on BR2_metag
+	default BR2_metag_1_2
+	help
+	  Specific CPU variant to use
+
+config BR2_metag_1_2
+	bool "Meta 1.2"
+config BR2_metag_2_1
+	bool "Meta 2.1"
+endchoice
