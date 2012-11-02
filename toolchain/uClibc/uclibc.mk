@@ -68,6 +68,10 @@ $(UCLIBC_DIR)/.unpacked: $(DL_DIR)/$(UCLIBC_SOURCE)
 	mkdir -p $(TOOLCHAIN_DIR)
 	rm -rf $(UCLIBC_DIR)
 	$(UCLIBC_CAT) $(DL_DIR)/$(UCLIBC_SOURCE) | tar -C $(TOOLCHAIN_DIR) $(TAR_OPTIONS) -
+ifeq ($(BR2_metag)$(BR2_UCLIBC_VERSION_0_9_33),yy)
+	mv $(TOPDIR)/toolchain/uClibc/uClibc-0.9.33.2-dup3.patch \
+		$(TOPDIR)/toolchain/uClibc/metag-dup3.patch
+endif
 	touch $@
 
 uclibc-patched: $(UCLIBC_DIR)/.patched
@@ -79,6 +83,10 @@ ifneq ($(BR2_UCLIBC_VERSION_SNAPSHOT),y)
 else
 	support/scripts/apply-patches.sh $(UCLIBC_DIR) $(UCLIBC_PATCH_DIR) \
 		uClibc.\*.patch uClibc.\*.patch.$(ARCH)
+endif
+ifeq ($(BR2_metag)$(BR2_UCLIBC_VERSION_0_9_33),yy)
+	mv $(TOPDIR)/toolchain/uClibc/metag-dup3.patch \
+		$(TOPDIR)/toolchain/uClibc/uClibc-0.9.33.2-dup3.patch
 endif
 	touch $@
 
